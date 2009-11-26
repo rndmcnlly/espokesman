@@ -14,7 +14,7 @@ DESIGN NOTES
   Input (assumed to be a single line) is collected from the http request
   by looking a the 'text' parameter. This input is piped into espeak which
   communicates with lame via a named pipe temporarily created in /tmp (as
-  /temp/espokseman.$PROCESS_ID.wav). The output is delivered to the client
+  /tmp/espokseman.$PROCESS_ID.wav). The output is delivered to the client
   incrementally as data is produced. The server sends the audio/mpeg content
   type to prime the client to stream audio data, but no content length is set
   because the length is not known ahead of time.
