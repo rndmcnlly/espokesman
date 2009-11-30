@@ -1,8 +1,8 @@
 #!/usr/bin/python
 
-import sys
-from twisted.web import server, resource
+from twisted.application import service, internet
 from twisted.internet import reactor, protocol
+from twisted.web import server, resource
 
 class SpeechProtocol(protocol.ProcessProtocol):
   def __init__(self, text, output):
@@ -30,9 +30,13 @@ class SpeechRenderer(resource.Resource):
         "./render_speech_to_mp3.sh")
     return server.NOT_DONE_YET
 
-if __name__ == "__main__":
-  root = resource.Resource()
-  root.putChild("speech", SpeechRenderer())
-  site = server.Site(root)
-  reactor.listenTCP(8999, site)
-  reactor.run()
+root = resource.Resource()
+root.putChild("speech", SpeechRenderer())
+
+port = 8999
+
+application = service.Application("ESpokesman")
+service = internet.TCPServer(port, server.Site(root))
+service.setServiceParent(application)
+
+

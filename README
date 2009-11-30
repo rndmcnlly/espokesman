@@ -1,7 +1,7 @@
 ESPOKESMAN - the espeak web service
 
 RUNNING
-  ./server.py
+  twistd -noy espokesman.tac
 
 MAKING REQUESTS
   http://localhost:8999/speech?text=hello%20world
